@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
+import './questao.dart';
 
 main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var numeroDaPergunta = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _numeroDaPergunta = 0;
   final List<String> perguntas = [
     'Qual é a sua cor favorita?',
     'Qual é o seu animal favorito?',
   ];
-  void responder() {
-    if (perguntas.length - 1 > numeroDaPergunta) {
+  void _responder() {
+    if (perguntas.length - 1 > _numeroDaPergunta) {
       setState(() {
-        numeroDaPergunta++;
+        _numeroDaPergunta++;
       });
     } else {
       setState(() {
-        numeroDaPergunta--;
+        _numeroDaPergunta--;
       });
     }
-    print(numeroDaPergunta);
+    print(_numeroDaPergunta);
   }
 
   @override
@@ -31,16 +32,16 @@ class PerguntaAppState extends State<PerguntaApp> {
         appBar: AppBar(title: Text('Perguntas')),
         body: Column(
           children: <Widget>[
-            Text(perguntas[numeroDaPergunta]),
+            Questao(perguntas[_numeroDaPergunta]),
             ElevatedButton(onPressed: null, child: Text('resposta 1')),
             //o professor usou RaisedButton, mas está depreciado e foi substituído pelo ElevatedButton
             //button é disabled by default, ele ativa quando setamos um onPressed != null
             ElevatedButton(
-              onPressed: () => responder(), //pode ser assim
+              onPressed: () => _responder(), //pode ser assim
               child: Text('resposta 2'),
             ),
             ElevatedButton(
-              onPressed: responder, //ou pode ser assim
+              onPressed: _responder, //ou pode ser assim
               child: Text('resposta 3'),
             ),
           ],
@@ -54,7 +55,7 @@ class PerguntaApp extends StatefulWidget {
   const PerguntaApp({super.key});
 
   @override
-  PerguntaAppState createState() {
-    return PerguntaAppState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
