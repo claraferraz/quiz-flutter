@@ -4,25 +4,34 @@ main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
+class PerguntaAppState extends State<PerguntaApp> {
+  var numeroDaPergunta = 0;
+  final List<String> perguntas = [
+    'Qual é a sua cor favorita?',
+    'Qual é o seu animal favorito?',
+  ];
   void responder() {
-    print('pergunta respondida!');
+    if (perguntas.length - 1 > numeroDaPergunta) {
+      setState(() {
+        numeroDaPergunta++;
+      });
+    } else {
+      setState(() {
+        numeroDaPergunta--;
+      });
+    }
+    print(numeroDaPergunta);
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual é o seu animal favorito?',
-    ];
-
     //para novas instâncias eu não preciso colocar o nome 'new'
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Perguntas')),
         body: Column(
           children: <Widget>[
-            Text(perguntas[0]),
+            Text(perguntas[numeroDaPergunta]),
             ElevatedButton(onPressed: null, child: Text('resposta 1')),
             //o professor usou RaisedButton, mas está depreciado e foi substituído pelo ElevatedButton
             //button é disabled by default, ele ativa quando setamos um onPressed != null
@@ -38,5 +47,14 @@ class PerguntaApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  const PerguntaApp({super.key});
+
+  @override
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
