@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/respostas.dart';
 import './questao.dart';
 
 main() {
@@ -33,17 +34,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: <Widget>[
             Questao(perguntas[_numeroDaPergunta]),
-            ElevatedButton(onPressed: null, child: Text('resposta 1')),
-            //o professor usou RaisedButton, mas está depreciado e foi substituído pelo ElevatedButton
-            //button é disabled by default, ele ativa quando setamos um onPressed != null
-            ElevatedButton(
-              onPressed: () => _responder(), //pode ser assim
-              child: Text('resposta 2'),
-            ),
-            ElevatedButton(
-              onPressed: _responder, //ou pode ser assim
-              child: Text('resposta 3'),
-            ),
+            Respostas('resposta 1'),
+            Respostas('resposta 2'),
+            Respostas('resposta 3'),
           ],
         ),
       ),

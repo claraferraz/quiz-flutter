@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Questao extends StatelessWidget {
   final String texto;
 
-  Questao(this.texto);
+  const Questao(this.texto);
 
   @override
   Widget build(BuildContext context) {
@@ -18,3 +18,13 @@ class Questao extends StatelessWidget {
     );
   }
 }
+
+/*
+ElevatedButton(
+  onPressed: () => _responder(), //pode ser assim
+  child: Text('resposta 2'),
+),
+ElevatedButton(
+  onPressed: _responder, //ou pode ser assim
+  child: Text('resposta 3')
+*/
