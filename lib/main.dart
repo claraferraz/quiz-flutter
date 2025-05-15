@@ -22,7 +22,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
         _numeroDaPergunta--;
       });
     }
-    print(_numeroDaPergunta);
   }
 
   @override
