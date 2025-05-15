@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:quiz/respostas.dart';
 import './questao.dart';
@@ -8,9 +10,20 @@ main() {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _numeroDaPergunta = 0;
-  final List<String> perguntas = [
-    'Qual é a sua cor favorita?',
-    'Qual é o seu animal favorito?',
+
+  final List<Map<String, Object>> perguntas = [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'resposta': ['preto', 'vermelho', 'verde', 'rosa', 'branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'resposta': ['cachorro', 'gato', 'sagui', 'capivara', 'passaro'],
+    },
+    {
+      'texto': 'Quais são as suas pessoas favoritas?',
+      'resposta': ['André', 'Rafa', 'Carlos', 'Tânia', 'Ana Clara'],
+    },
   ];
   void _responder() {
     if (perguntas.length - 1 > _numeroDaPergunta) {
@@ -19,23 +32,25 @@ class _PerguntaAppState extends State<PerguntaApp> {
       });
     } else {
       setState(() {
-        _numeroDaPergunta--;
+        _numeroDaPergunta = 0;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Respostas> respostas = [];
+    for (String textoResp in perguntas[_numeroDaPergunta].cast()['resposta']) {
+      respostas.add(Respostas(textoResp, _responder));
+    }
     //para novas instâncias eu não preciso colocar o nome 'new'
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Perguntas')),
         body: Column(
           children: <Widget>[
-            Questao(perguntas[_numeroDaPergunta]),
-            Respostas('resposta 1', _responder),
-            Respostas('resposta 2', _responder),
-            Respostas('resposta 3', _responder),
+            Questao(perguntas[_numeroDaPergunta]['texto'].toString()),
+            ...respostas,
           ],
         ),
       ),
