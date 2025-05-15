@@ -25,21 +25,24 @@ class _PerguntaAppState extends State<PerguntaApp> {
       'resposta': ['André', 'Rafa', 'Carlos', 'Tânia', 'Ana Clara'],
     },
   ];
+  bool get _temPerguntaSelecionada {
+    return _numeroDaPergunta < perguntas.length;
+  }
+
   void _responder() {
-    if (perguntas.length - 1 > _numeroDaPergunta) {
+    if (_temPerguntaSelecionada) {
       setState(() {
         _numeroDaPergunta++;
-      });
-    } else {
-      setState(() {
-        _numeroDaPergunta = 0;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = perguntas[_numeroDaPergunta].cast()['resposta'];
+    List<String> respostas =
+        _temPerguntaSelecionada
+            ? perguntas[_numeroDaPergunta].cast()['resposta']
+            : [];
     ;
 
     //para novas instâncias eu não preciso colocar o nome 'new'
@@ -55,12 +58,21 @@ class _PerguntaAppState extends State<PerguntaApp> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Questao(perguntas[_numeroDaPergunta]['texto'].toString()),
-            ...respostas.map((t) => Respostas(t, _responder)),
-          ],
-        ),
+        body:
+            _temPerguntaSelecionada
+                ? Column(
+                  children: <Widget>[
+                    Questao(perguntas[_numeroDaPergunta]['texto'].toString()),
+                    ...respostas.map((t) => Respostas(t, _responder)),
+                  ],
+                )
+                : Center(
+                  child: Text(
+                    'Parabéns! Não há mais perguntas',
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
       ),
     );
   }
