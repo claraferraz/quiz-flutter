@@ -39,18 +39,26 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<Respostas> respostas = [];
-    for (String textoResp in perguntas[_numeroDaPergunta].cast()['resposta']) {
-      respostas.add(Respostas(textoResp, _responder));
-    }
+    List<String> respostas = perguntas[_numeroDaPergunta].cast()['resposta'];
+    ;
+
     //para novas instâncias eu não preciso colocar o nome 'new'
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Perguntas')),
+        appBar: AppBar(
+          title: Text('Perguntas'),
+          backgroundColor: const Color.fromARGB(255, 255, 126, 167),
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 26,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         body: Column(
           children: <Widget>[
             Questao(perguntas[_numeroDaPergunta]['texto'].toString()),
-            ...respostas,
+            ...respostas.map((t) => Respostas(t, _responder)),
           ],
         ),
       ),
